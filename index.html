@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutripaw | Dispensador Automático Inteligente de Alimento para Mascotas</title>
+  <style>
+    :root {
+      --primary: #0f9b8e;
+      --primary-dark: #0a7369;
+      --accent: #f97316;
+      --navy: #0f2942;
+      --bg: #f4f7f9;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand-logos img.logo-main {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-logos img.logo-corp {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      border-left: 1px solid var(--border);
+      padding-left: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a.nav-buy {
+      background: var(--accent);
+      color: #ffffff;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #16425b 100%);
+      color: #ffffff;
+      padding: 4rem 1.5rem;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(15, 155, 142, 0.25);
+      border: 1px solid #2dd4bf;
+      color: #99f6e4;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #ffffff;
+      padding: 0.85rem 1.6rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: #ea580c;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #ffffff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-pets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .hero-pets img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+
+    section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .card h3 {
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      font-size: 1.15rem;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .cad-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .table-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 620px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.94rem;
+    }
+
+    th {
+      background: var(--navy);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .cat-row td {
+      background: #e6f4f1;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .safety-box {
+      background: #fff7ed;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .safety-box h4 {
+      color: #9a3412;
+      margin-bottom: 0.5rem;
+    }
+
+    .safety-box p {
+      color: #431407;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .buy-section {
+      background: #ffffff;
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2rem;
+      align-items: start;
+      box-shadow: 0 10px 25px rgba(15, 41, 66, 0.08);
+    }
+
+    .price-tag {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin: 0.5rem 0;
+    }
+
+    .price-tag span {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .include-list {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    .include-list li {
+      padding: 0.35rem 0;
+      color: var(--text);
+    }
+
+    .include-list li::before {
+      content: "✓ ";
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      font-size: 0.92rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .total-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .btn-whatsapp {
+      width: 100%;
+      background: #16a34a;
+      text-align: center;
+    }
+
+    .btn-whatsapp:hover {
+      background: #15803d;
+    }
+
+    footer {
+      background: var(--navy);
+      color: #cbd5e1;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    footer strong {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="brand-logos">
+        <img src="img/Captura de pantalla 2026-09-28 153043.png" alt="Logo Nutripaw" class="logo-main">
+        <img src="img/Captura de pantalla 2026-09-28 154608.png" alt="Mejoras y Diseños ING. S.A. de C.V." class="logo-corp">
+      </div>
+      <div class="nav-links">
+        <a href="#funcionamiento">Funcionamiento</a>
+        <a href="#diseno">Diseño Mecánico</a>
+        <a href="#ficha-tecnica">Ficha Técnica</a>
+        <a href="#comprar" class="nav-buy">Comprar Ahora</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="badge">Versión 1.0 • Sistema Electromecánico IoT</span>
+        <h1>Nutripaw: Dispensador Automático Inteligente de Alimento para Mascotas</h1>
+        <p>Dosificación programada y remota de croquetas secas para perros y gatos mediante control híbrido con interfaz local HMI y conectividad Wi-Fi gestionada por ESP32.</p>
+        <div class="hero-actions">
+          <a href="#comprar" class="btn">Ordenar Nutripaw</a>
+          <a href="#ficha-tecnica" class="btn btn-outline">Ver Ficha Técnica</a>
+        </div>
+      </div>
+      <div class="hero-pets">
+        <img src="img/perro.jpg" alt="Perro cachorro">
+        <img src="img/gato.jpg" alt="Gato pequeño">
+      </div>
+    </div>
+  </header>
+
+  <section id="funcionamiento">
+    <h2 class="section-title">Funcionamiento del Producto</h2>
+    <p class="section-subtitle">Opera bajo un lazo de control híbrido (interfaz local HMI + comunicación remota IoT) con microcontrolador ESP32 en cuatro etapas funcionales.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="step-num">1</span>
+        <h3>Recopilación de Instrucciones (HMI y App Móvil)</h3>
+        <p>Recibe horarios, porciones y modos manual o automático desde pantalla local (TFT SPI/I2C o Nextion UART) con validación de rango y antirrebote, o desde la app móvil (JSON vía MQTT, HTTP/REST o BLE). Sincroniza ambos canales y guarda los cambios en memoria no volátil ante cortes de energía.</p>
+      </div>
+
+      <div class="card">
+        <span class="step-num">2</span>
+        <h3>Programación de Horarios y Control de Tiempo</h3>
+        <p>Combina reloj de tiempo real externo (RTC DS3231 con batería CR2032) y sincronización NTP por Wi-Fi para mantener la hora exacta incluso sin red. Evalúa la hora (HH:MM) contra la programación y usa una bandera por minuto para evitar disparos duplicados.</p>
+      </div>
+
+      <div class="card">
+        <span class="step-num">3</span>
+        <h3>Activación del Servomotor y Dosificación</h3>
+        <p>Al cumplirse la hora o al pedir una dosis manual, el ESP32 envía señal PWM al servomotor para accionar el mecanismo dosificador (compuerta rotativa, guillotina, tornillo sinfín o tambor). Calcula el tiempo de activación según la dosis deseada y el flujo del pellet, alimentándose desde riel regulado independiente y registrando cada ciclo.</p>
+      </div>
+
+      <div class="card">
+        <span class="step-num">4</span>
+        <h3>Lectura de Sensores y Notificación de Nivel Bajo</h3>
+        <p>Supervisa el alimento en la tolva mediante sensores infrarrojos de barrera con filtrado contra polvo o rebotes. Si el nivel cae bajo el umbral, activa el estado <code>LOW_FOOD_ALERT</code> con aviso local y notificación push/MQTT, aplicando histéresis al rellenar para evitar alertas repetitivas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="diseno">
+    <h2 class="section-title">Diseño Mecánico y Estructura</h2>
+    <p class="section-subtitle">Chasis impreso en PETG, tolva transparente en acrílico (PMMA) y tapa articulada para uso en interiores con croquetas secas pequeñas a medianas.</p>
+
+    <div class="grid-3">
+      <div class="card cad-card">
+        <img src="img/chasis.jpeg" alt="Chasis estructural impreso en PETG">
+        <h3>Chasis Estructural (PETG)</h3>
+        <p>Fabricado mediante impresión 3D en filamento PETG por su resistencia mecánica, térmica y a la humedad, alojando el compartimento de control y el área de dispensado.</p>
+      </div>
+
+      <div class="card cad-card">
+        <img src="img/tolva.jpeg" alt="Tolva de acrílico transparente">
+        <h3>Tolva Contenedora (Acrílico PMMA)</h3>
+        <p>Depósito transparente de baja fricción que facilita la inspección visual rápida del nivel de croquetas y su canalización hacia el mecanismo de paso.</p>
+      </div>
+
+      <div class="card cad-card">
+        <img src="img/tapa.jpeg" alt="Tapa abatible con bisagra">
+        <h3>Tapa Superior Articulada</h3>
+        <p>Diseñada con bisagra multi-pivote para abrir y recargar el alimento con comodidad, manteniendo protegida la parte superior del conjunto.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="ficha-tecnica">
+    <h2 class="section-title">Ficha Técnica</h2>
+    <p class="section-subtitle">Dispensador Automático Inteligente de Alimento para Mascotas — Versión 1.0</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Parámetro / Componente</th>
+            <th>Especificación Técnica</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="2">Información General</td></tr>
+          <tr><td>Nombre del Producto</td><td>Dispensador Automático Inteligente de Alimento para Mascotas</td></tr>
+          <tr><td>Tipo de Sistema</td><td>Electromecánico automatizado con conectividad IoT</td></tr>
+          <tr><td>Aplicación</td><td>Dosificación programada y remota de alimento seco (croquetas)</td></tr>
+
+          <tr class="cat-row"><td colspan="2">Alimentación Eléctrica</td></tr>
+          <tr><td>Tensión de Entrada</td><td>110V – 127V CA, 60 Hz (conexión directa a toma doméstica)</td></tr>
+          <tr><td>Conversión AC-DC</td><td>Fuente conmutada aislada de 120V CA a 5V CC (mínimo 2A recomendados)</td></tr>
+          <tr><td>Regulación Lógica</td><td>Regulador lineal LDO de 5V a 3.3V para alimentación segura del ESP32</td></tr>
+          <tr><td>Protecciones</td><td>Fusible en línea de CA y capacitor de desacoplo / diodo en línea de 5V del motor</td></tr>
+          <tr><td>Consumo Energético</td><td>~1.5 W en reposo (standby) / 5 W – 8 W en operación del motor</td></tr>
+
+          <tr class="cat-row"><td colspan="2">Control y Electrónica</td></tr>
+          <tr><td>Microcontrolador (MCU)</td><td>ESP32 (Arquitectura Dual-Core Tensilica Xtensa LX6 a 240 MHz)</td></tr>
+          <tr><td>Conectividad</td><td>Wi-Fi 802.11 b/g/n (2.4 GHz) para control remoto y sincronización horaria (NTP)</td></tr>
+          <tr><td>Interfaz Visual (HMI)</td><td>Pantalla LCD (16x2 o 20x4 caracteres con módulo adaptador I2C)</td></tr>
+          <tr><td>Actuador Mecánico</td><td>Servomotor de torque medio/alto (ej. MG995 / MG996R con engranajes metálicos)</td></tr>
+
+          <tr class="cat-row"><td colspan="2">Materiales y Estructura</td></tr>
+          <tr><td>Chasis y Estructura</td><td>Impresión 3D en filamento PETG (alta resistencia mecánica, térmica y a la humedad)</td></tr>
+          <tr><td>Contenedor (Tolva)</td><td>Lámina o cilindro de Acrílico (PMMA) transparente (baja fricción y fácil inspección)</td></tr>
+          <tr><td>Mecanismo de Paso</td><td>Compuerta rotativa o tipo guillotina accionada por brazo de servomotor</td></tr>
+
+          <tr class="cat-row"><td colspan="2">Operación y Entorno</td></tr>
+          <tr><td>Alimento Compatible</td><td>Croquetas secas de tamaño pequeño a mediano</td></tr>
+          <tr><td>Temperatura de Trabajo</td><td>5 °C a 40 °C (uso exclusivo en interiores)</td></tr>
+          <tr><td>Mantenimiento</td><td>Limpieza en seco o con paño húmedo (sin alcohol ni solventes sobre el acrílico)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="safety-box">
+      <h4>Recomendaciones Técnicas de Implementación</h4>
+      <p><strong>Aislamiento de 120V CA:</strong> Encapsular completamente la fuente conmutada AC-DC dentro de un compartimento aislado en la estructura de PETG para prevenir riesgos eléctricos.</p>
+      <p><strong>Alimentación del Servomotor:</strong> Conectar la línea positiva del servomotor directamente a la salida de 5V de la fuente (no al pin de 3.3V del ESP32) compartiendo tierra común (GND) para evitar reinicios por caídas de tensión.</p>
+    </div>
+  </section>
+
+  <section id="comprar">
+    <h2 class="section-title">Adquiere tu Dispensador Nutripaw</h2>
+    <p class="section-subtitle">Configura tu pedido y envíalo directamente para coordinar pago y entrega.</p>
+
+    <div class="buy-section">
+      <div>
+        <span class="badge" style="background:#e6f4f1; color:#0a7369; border-color:#0f9b8e;">Edición Versión 1.0</span>
+        <h3>Nutripaw Dispensador Inteligente IoT</h3>
+        <div class="price-tag">$1,490 MXN <span>/ unidad</span></div>
+        <p style="color: var(--muted);">Equipo ensamblado, calibrado y listo para conectar a corriente doméstica (110V–127V CA) y red Wi-Fi de 2.4 GHz.</p>
+        <ul class="include-list">
+          <li>Chasis estructural impreso en PETG de alta resistencia</li>
+          <li>Tolva transparente en acrílico (PMMA) y tapa articulada</li>
+          <li>Controlador ESP32 con pantalla LCD I2C y reloj RTC</li>
+          <li>Fuente aislada 120V CA a 5V CC incluida</li>
+          <li>Garantía y soporte técnico directo</li>
+        </ul>
+      </div>
+
+      <form id="orderForm" onsubmit="enviarPedido(event)">
+        <div class="form-group">
+          <label for="clienteNombre">Tu nombre completo</label>
+          <input type="text" id="clienteNombre" placeholder="Ej. Ana López" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cantidad">Cantidad de equipos</label>
+          <select id="cantidad" onchange="actualizarTotal()">
+            <option value="1">1 unidad</option>
+            <option value="2">2 unidades</option>
+            <option value="3">3 unidades</option>
+            <option value="5">5 unidades (Paquete)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="metodoPago">Método de pago preferido</label>
+          <select id="metodoPago">
+            <option value="Transferencia bancaria / SPEI">Transferencia bancaria / SPEI</option>
+            <option value="Tarjeta / Link de pago Mercado Pago">Tarjeta / Link de pago Mercado Pago</option>
+            <option value="Pago contra entrega (local)">Pago contra entrega (local)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ciudad">Ciudad y estado de entrega</label>
+          <input type="text" id="ciudad" placeholder="Ej. San Luis Potosí, S.L.P." required>
+        </div>
+
+        <div class="total-box">
+          <span>Total estimado:</span>
+          <span id="totalTexto">$1,490 MXN</span>
+        </div>
+
+        <button type="submit" class="btn btn-whatsapp">Realizar Pedido por WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Nutripaw</strong> • Desarrollado por <strong>Mejoras y Diseños ING. S.A. de C.V.</strong></p>
+    <p>Dispensador Automático Inteligente de Alimento para Mascotas — Versión 1.0</p>
+  </footer>
+
+  <script>
+    // Cambia este número por tu WhatsApp real con código de país (521 + 10 dígitos en México)
+    const TELEFONO_WHATSAPP = "5214445329389";
+    // Cambia este valor si deseas ajustar el precio unitario
+    const PRECIO_UNITARIO = 1490;
+
+    function actualizarTotal() {
+      const cantidad = parseInt(document.getElementById("cantidad").value, 10);
+      const total = cantidad * PRECIO_UNITARIO;
+      document.getElementById("totalTexto").textContent = "$" + total.toLocaleString("es-MX") + " MXN";
+    }
+
+    function enviarPedido(event) {
+      event.preventDefault();
+      const nombre = document.getElementById("clienteNombre").value.trim();
+      const cantidad = parseInt(document.getElementById("cantidad").value, 10);
+      const pago = document.getElementById("metodoPago").value;
+      const ciudad = document.getElementById("ciudad").value.trim();
+      const total = cantidad * PRECIO_UNITARIO;
+
+      const mensaje = `Hola, quiero comprar el Dispensador Nutripaw:%0A` +
+        `• Nombre: ${encodeURIComponent(nombre)}%0A` +
+        `• Cantidad: ${cantidad} unidad(es)%0A` +
+        `• Total: $${total.toLocaleString("es-MX")} MXN%0A` +
+        `• Método de pago: ${encodeURIComponent(pago)}%0A` +
+        `• Ciudad de entrega: ${encodeURIComponent(ciudad)}`;
+
+      window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${mensaje}`, "_blank");
+    }
+  </script>
+
+</body>
+</html>
